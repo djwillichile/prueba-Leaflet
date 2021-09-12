@@ -33,30 +33,6 @@
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var al_to_geotiff_file = "bio1.tif";
-    fetch(al_to_geotiff_file)
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => {
-          parseGeoraster(arrayBuffer).then(georaster => {
-            // console.log("georaster:", georaster);
-            var aluminio = new GeoRasterLayer({
-                attribution: "Planet",
-                georaster: georaster,
-                opacity: 0.9,
-                pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
-                        (values[0] < -50 )          ? '#ff9800' :
-                        (values[0] >= -50 && values[0] < 0)   ? '#cddc39' :
-                        (values[0] >= 0 && values[0] < 50)   ? '#4caf50' :
-                        (values[0] >= 50 && values[0] < 100)   ? '#215a23' :
-                        (values[0] >= 100)   ? '#20308a' :
-                        'rgba(255,255,255,0)',
-
-                resolution: 350
-            });
-            aluminio.addTo(map);
-            map.fitBounds(aluminio.getBounds());
-          });
-      });
     </script>
 </body>
 </html>
