@@ -26,13 +26,37 @@
     var map = L.map('map',{
         minZoom: 0,
         maxZoom: 15,
-        zoom: 2
-    }).setView([-36.49, -72.12],2);
+        zoom: 12
+    }).setView([-24.898, -54.547]);
 
     var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    var al_to_geotiff_file = "bio1.tif";
+    fetch(al_to_geotiff_file)
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => {
+          parseGeoraster(arrayBuffer).then(georaster => {
+            // console.log("georaster:", georaster);
+            var aluminio = new GeoRasterLayer({
+                attribution: "Planet",
+                georaster: georaster,
+                opacity: 0.9,
+                pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
+                        (values[0] <  65 )          ? '#ff9800' :
+                        (values[0] >= 65 && values[0] < 70)   ? '#cddc39' :
+                        (values[0] >= 70 && values[0] < 75)   ? '#4caf50' :
+                        (values[0] >= 75 && values[0] < 79)   ? '#215a23' :
+                        (values[0] >= 79)   ? '#20308a' :
+                        'rgba(255,255,255,0)',
+
+                resolution: 350
+            });
+            aluminio.addTo(map);
+            map.fitBounds(aluminio.getBounds());
+          });
+      });
     </script>
 </body>
 </html>
