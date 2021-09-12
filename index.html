@@ -1,62 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <style>
-        #map {
-            height: 100vh;
-        }
-    </style>
-</head>
-<body>
+<html>
+  <head>
+    <title>Leaflet GeoTIFF</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
     <div id="map"></div>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-    <script src="https://unpkg.com/proj4"></script>
-    <script src="https://unpkg.com/georaster"></script>
-    <script src="https://unpkg.com/georaster-layer-for-leaflet/georaster-layer-for-leaflet.browserify.min.js"></script>
 
-    <script type="text/javascript">
+    <div id="controls">
+      <h2>Leaflet GeoTIFF (plotty example)</h2>
 
-    var map = L.map('map',{
-        minZoom: 0,
-        maxZoom: 15,
-        zoom: 12
-    }).setView([-24.898, -54.547]);
+      <form>
+        <p>
+          <label>displayMin:
+            <input type="number" id="displayMin" value="0" />
+          </label>
+          <label>displayMax:
+            <input type="number" id="displayMax" value="10" />
+          </label>
+        </p>
+        <p>
+          <label>clampMin:
+            <input type="checkbox" id="clampLow" />
+          </label>
+          <label>clampMax:
+            <input type="checkbox" id="clampHigh" />
+          </label>
+        </p>
+        <p>
+          <label>
+            colorScale:
+            <select id="colorScale">
+              <option>viridis</option>
+              <option>inferno</option>
+              <option>turbo</option>
+              <option>rainbow</option>
+              <option>jet</option>
+              <option>hsv</option>
+              <option>hot</option>
+              <option>cool</option>
+              <option>spring</option>
+              <option>summer</option>
+              <option>winter</option>
+              <option>autumn</option>
+              <option>bone</option>
+              <option>copper</option>
+              <option>greys</option>
+              <option>yignbu</option>
+              <option>greens</option>
+              <option>yiorrd</option>
+              <option>bluered</option>
+              <option>rdbu</option>
+              <option>picnic</option>
+              <option>portland</option>
+              <option>blackbody</option>
+              <option>earth</option>
+              <option>electric</option>
+              <option>magma</option>
+              <option>plasma</option>
+            </select>
+          </label>
+        </p>
+        <p>
+          <button id="getBounds">Zoom to bounds</button>
+          <button id="getColorbarOptions">Log getColorbarOptions</button>
+        </p>
+      </form>
 
-    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    <!--leaflet-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
 
-    var al_to_geotiff_file = "https://djwillichile.github.io/prueba-Leaflet/bio1.tif";
-    fetch(al_to_geotiff_file)
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => {
-          parseGeoraster(arrayBuffer).then(georaster => {
-            // console.log("georaster:", georaster);
-            var aluminio = new GeoRasterLayer({
-                attribution: "Planet",
-                georaster: georaster,
-                opacity: 0.9,
-                pixelValuesToColorFn: values => values[0] === -3.4028230607370965e+38? null :
-                        (values[0] <  65 )          ? '#ff9800' :
-                        (values[0] >= 65 && values[0] < 70)   ? '#cddc39' :
-                        (values[0] >= 70 && values[0] < 75)   ? '#4caf50' :
-                        (values[0] >= 75 && values[0] < 79)   ? '#215a23' :
-                        (values[0] >= 79)   ? '#20308a' :
-                        'rgba(255,255,255,0)',
+    <!--deps-->
+    <script src="https://unpkg.com/geotiff@1.0.0-beta.7/dist/geotiff.bundle.js"></script>
+    <script src="https://unpkg.com/plotty@0.4.4/dist/plotty.min.js"></script>
 
-                resolution: 350
-            });
-            aluminio.addTo(map);
-            map.fitBounds(aluminio.getBounds());
-          });
-      });
-    </script>
-</body>
+    <!--the plugin-->
+    <script src="../dist/leaflet-geotiff.js"></script>
+    <script src="../dist/leaflet-geotiff-plotty.js"></script>
+    <script src="../dist/leaflet-geotiff-vector-arrows.js"></script>
+
+    <!--demo stuff-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="demo.css" />
+    <script src="demo.js"></script>
+  </body>
 </html>
