@@ -37,7 +37,7 @@
 
     /* An ASCIIGrid Raster with Surface current velocity */
     d3.text('data/bio1.tif', function (tif) {
-      let s = L.ScalarField.fromASCIIGrid(tif);
+      let s = L.ScalarField.fromGeoTIFF(tif);
 
       let identify = function (e) {
         if (e.value !== null) {
