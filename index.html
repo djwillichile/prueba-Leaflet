@@ -54,6 +54,20 @@
       interpolated.on('click', identify);
       interpolated.addTo(map);
 
+      // vs original
+      let original = L.canvasLayer.scalarField(s);
+      original.on('click', identify);
+      map.fitBounds(interpolated.getBounds());
+
+
+      L.control.layers({
+        "Interpolated": interpolated,
+        "Original": original
+      }, {}, {
+          position: 'topright',
+          collapsed: false
+        }).addTo(map);
+
 
     });
   </script>
