@@ -1,4 +1,4 @@
-var map = L.map('map').setView([-35.31, -72.11], 7);
+var map = L.map('map');
 
 let url1 = 'https://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png';
 let url2 = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}';
