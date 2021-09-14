@@ -18,6 +18,6 @@ var layer_OSMStandard_1 = L.tileLayer(url, {
 map.addLayer(layer_OSMStandard_1);
 
 L.marker([-35.31, -72.11]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+    .bindPopup('HOLIS.<br> Easily customizable.')
     .openPopup();
         
