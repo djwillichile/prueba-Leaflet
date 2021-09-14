@@ -1,4 +1,4 @@
-let map = L.map('map').setView([-35.31, -72.11], 7);
+let map = L.map('map').setView([51.505, -0.09], 13);
 
 map.createPane('pane_GoogleTerrain_0');
 map.getPane('pane_GoogleTerrain_0').style.zIndex = 400;
