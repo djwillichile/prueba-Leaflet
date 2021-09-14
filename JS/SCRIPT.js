@@ -11,7 +11,23 @@ var layer_GoogleTerrain_0 = L.tileLayer(url, {
     maxZoom: 28,
     minNativeZoom: 0,
     maxNativeZoom: 20
-})
+});
 
 layer_GoogleTerrain_0.addTo(map);
+
+
+map.createPane('pane_OSMStandard_1');
+map.getPane('pane_OSMStandard_1').style.zIndex = 401;
+let url = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+var layer_OSMStandard_1 = L.tileLayer(url, {
+    pane: 'pane_GoogleTerrain_0',
+    opacity: 1.0,
+    minZoom: 1,
+    maxZoom: 28,
+    minNativeZoom: 0,
+    maxNativeZoom: 20
+});
+
+map.addLayer(layer_OSMStandard_1);
         
