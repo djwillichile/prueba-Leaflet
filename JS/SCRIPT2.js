@@ -14,7 +14,7 @@ var layer_OSMStandard_1 = L.tileLayer(url2, {
     opacity: .6,
 });
 
-
+map.addLayer(layer_OSMStandard_1);
 
 L.marker([-35.31, -72.11]).addTo(map)
     .bindPopup('HOLIS.<br> Easily customizable.')
