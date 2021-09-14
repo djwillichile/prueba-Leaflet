@@ -22,7 +22,7 @@ let url = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 var layer_OSMStandard_1 = L.tileLayer(url, {
     pane: 'pane_GoogleTerrain_0',
-    opacity: 1.0,
+    opacity: .6,
     minZoom: 1,
     maxZoom: 28,
     minNativeZoom: 0,
