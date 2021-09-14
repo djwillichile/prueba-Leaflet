@@ -35,46 +35,6 @@
             subdomains: 'abcd'
         }).addTo(map);
 
-        /* Temperature and Geopotencial Height in GeoTIFF with 2 bands */
-        d3.request("data/bio1.tif").responseType('arraybuffer').get(
-            function (error, tiffData) {
-                // Geopotential height (BAND 0)
-                let bio = L.ScalarField.fromGeoTIFF(tiffData.response, bandIndex = 0);
-
-                let layerbio = L.canvasLayer.scalarField(geo, {
-                    color: chroma.scale('RdPu').domain(geo.range),
-                    opacity: 0.65
-                }).addTo(map);
-                
-                let interpolated = L.canvasLayer.scalarField(layerbio, {
-                  interpolate: true,
-                });
-
-                layerbio.on('click', function (e) {
-                    if (e.value !== null) {
-                        let v = e.value.toFixed(0);
-                        let html = (`<span class="popupText">bioclim ${v} m</span>`);
-                        let popup = L.popup()
-                            .setLatLng(e.latlng)
-                            .setContent(html)
-                            .openOn(map);
-                    }
-                });
-
-                interpolated.addTo(map);
-
-
-                L.control.layers({
-                    "Geopotential Height": interpolated
-                }, {}, {
-                        position: 'topright',
-                        collapsed: false
-                    }).addTo(map);
-
-                map.fitBounds(layerGeo.getBounds());
-
-            });
-
     </script>
   </body>
 
