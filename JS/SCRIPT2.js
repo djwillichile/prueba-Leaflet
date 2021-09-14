@@ -8,15 +8,6 @@ var layer_GoogleTerrain_0 = L.tileLayer(url, {
 
 layer_GoogleTerrain_0.addTo(map);
 
-let url = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-var layer_OSMStandard_1 = L.tileLayer(url, {
-    pane: 'pane_GoogleTerrain_0',
-    opacity: .6,
-});
-
-map.addLayer(layer_OSMStandard_1);
-
 L.marker([-35.31, -72.11]).addTo(map)
     .bindPopup('HOLIS.<br> Easily customizable.')
     .openPopup();
