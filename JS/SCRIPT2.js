@@ -17,10 +17,10 @@ map.addLayer(layer_GoogleTerrain_1);
 
 d3.request("data/bio1.tif").responseType('arraybuffer').get(
             function (error, tiffData) {
-                let ndvi = L.ScalarField.fromGeoTIFF(tiffData.response);
+                let bio = L.ScalarField.fromGeoTIFF(tiffData.response);
 
-                let layer = L.canvasLayer.scalarField(ndvi, {
-                    color: chroma.scale('YlGn').domain(ndvi.range),
+                let layer = L.canvasLayer.scalarField(bio, {
+                    color: chroma.scale('YlGnBu').domain(bio.range),
                     opacity: 0.65,
                     inFilter: (v) => v !== 0
                 }).addTo(map);
@@ -28,7 +28,7 @@ d3.request("data/bio1.tif").responseType('arraybuffer').get(
                 layer.on('click', function (e) {
                     if (e.value !== null) {
                         let v = e.value.toFixed(2);
-                        let html = (`<span class="popupText">NDVI ${v}</span>`);
+                        let html = (`<span class="popupText">bio1 ${v}</span>`);
                         let popup = L.popup()
                             .setLatLng(e.latlng)
                             .setContent(html)
