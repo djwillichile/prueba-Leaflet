@@ -9,7 +9,7 @@ var layer_OSMStandard_0 = L.tileLayer(url1, {
 });
 
 var layer_GoogleTerrain_1 = L.tileLayer(url2, {
-    opacity: .7,
+    opacity: .55,
 });
 
 layer_OSMStandard_0.addTo(map);
