@@ -1,7 +1,9 @@
 var map = L.map('map').setView([-35.31, -72.11], 7);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+let url = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}';
+
+L.tileLayer(url, {
+    opacity: 1.0,
 }).addTo(map);
 
 L.marker([-35.31, -72.11]).addTo(map)
