@@ -8,7 +8,7 @@ var layer_GoogleTerrain_0 = L.tileLayer(url1, {
 
 layer_GoogleTerrain_0.addTo(map);
 
-let url2 = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+let url2 = 'https://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png';
 
 var layer_OSMStandard_1 = L.tileLayer(url2, {
     opacity: .6,
