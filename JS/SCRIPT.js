@@ -6,7 +6,7 @@ let url = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}';
 
 var layer_GoogleTerrain_0 = L.tileLayer(url, {
     pane: 'pane_GoogleTerrain_0',
-    opacity: 1.0,
+    opacity: .7,
     minZoom: 1,
     maxZoom: 28,
     minNativeZoom: 0,
@@ -28,6 +28,7 @@ var layer_OSMStandard_1 = L.tileLayer(url, {
     minNativeZoom: 0,
     maxNativeZoom: 20
 });
+
 
 map.addLayer(layer_OSMStandard_1);
         
