@@ -15,7 +15,7 @@ var layer_GoogleTerrain_1 = L.tileLayer(url2, {
 layer_OSMStandard_0.addTo(map);
 map.addLayer(layer_GoogleTerrain_1);
 
-d3.request("data/ndvi_201702_LZW.tif").responseType('arraybuffer').get(
+d3.request("data/bio1.tif").responseType('arraybuffer').get(
             function (error, tiffData) {
                 let ndvi = L.ScalarField.fromGeoTIFF(tiffData.response);
 
