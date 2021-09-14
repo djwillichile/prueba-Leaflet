@@ -21,6 +21,7 @@ d3.request("data/bio1.tif").responseType('arraybuffer').get(
 
                 let layer = L.canvasLayer.scalarField(ndvi, {
                     color: chroma.scale('YlGn').domain(ndvi.range),
+                    opacity: 0.65,
                     inFilter: (v) => v !== 0
                 }).addTo(map);
 
