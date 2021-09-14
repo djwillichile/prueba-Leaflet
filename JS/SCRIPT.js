@@ -11,9 +11,9 @@ var layer_GoogleTerrain_0 = L.tileLayer(url, {
     maxZoom: 28,
     minNativeZoom: 0,
     maxNativeZoom: 20
-});
+}).addTo(map);
 
-layer_GoogleTerrain_0.addTo(map);
+layer_GoogleTerrain_0;
 
 
 map.createPane('pane_OSMStandard_1');
