@@ -24,7 +24,6 @@ var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'julio',
 
 d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
     function (error, tiffData) {
-
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
@@ -59,13 +58,4 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         map.fitBounds(bounds);
 
-    
     });
-
-window.onload = function(){
-    setTimeout(function(){
-        var contenedor = document.getElementById('load_container');
-        contenedor.style.visibility = 'hidden';
-        contenedor.style.opacity = '0';
-    }, 1100);
-}
