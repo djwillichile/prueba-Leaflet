@@ -19,7 +19,7 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 '#8abccf', '#a5d5d8', '#c5eddf', '#ffffe0', '#ffdec7', '#ffbcaf',
 '#ff9895', '#f4777f', '#e4576b', '#cf3759', '#b41648', '#93003a']
 
-var layer_Regin_6 = new L.geoJson(json_Regin_6);
+// var layer_Regin_6 = new L.geoJson(json_Regin_6);
 
 
 
