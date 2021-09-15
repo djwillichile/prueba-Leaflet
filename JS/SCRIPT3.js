@@ -30,7 +30,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         scalarFields.forEach(function (sf, index) {
             let layerSf = L.canvasLayer.scalarField(sf, {
-                color: chroma.scale('RdPu').domain(sf.range),
+                color: chroma.scale('Spectral').domain(sf.range),
                 opacity: 0.65,
                 interpolate: true,
             }).addTo(map);
