@@ -15,44 +15,44 @@ var layer_GoogleTerrain_1 = L.tileLayer(url2, {
 layer_OSMStandard_0.addTo(map);
 map.addLayer(layer_GoogleTerrain_1);
 
-var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
+/*var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 '#8abccf', '#a5d5d8', '#c5eddf', '#ffffe0', '#ffdec7', '#ffbcaf',
 '#ff9895', '#f4777f', '#e4576b', '#cf3759', '#b41648', '#93003a']
+*/
 
 
-d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
-    function (error, tiffData) {
-        let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
-        let legend = {};
-        let bounds = {};
+d3.request("data/tz850.tiff").responseType('arraybuffer').get(
+            function (error, tiffData) {
+                let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
+                let legend = {};
+                let bounds = {};
 
-        scalarFields.forEach(function (sf, index) {
-            let layerSf = L.canvasLayer.scalarField(sf, {
-                color: chroma.scale('RdPu').domain(sf.range),
-                opacity: 0.65
-            }).addTo(map);
-            
-            layerSf.on('click', function (e) {
-                if (e.value !== null) {
-                    let v = e.value.toFixed(0);
-                    let html = ('<span class="popupText">Value: ' + v + '</span>');
-                    L.popup()
-                        .setLatLng(e.latlng)
-                        .setContent(html)
-                        .openOn(map);
-                }
+                scalarFields.forEach(function (sf, index) {
+                    let layerSf = L.canvasLayer.scalarField(sf, {
+                        color: chroma.scale('RdPu').domain(sf.range),
+                        opacity: 0.65
+                    }).addTo(map);
+                    layerSf.on('click', function (e) {
+                        if (e.value !== null) {
+                            let v = e.value.toFixed(0);
+                            let html = ('<span class="popupText">Value: ' + v + '</span>');
+                            L.popup()
+                                .setLatLng(e.latlng)
+                                .setContent(html)
+                                .openOn(map);
+                        }
+                    });
+                    legend["Band " + index] = layerSf;
+
+                    bounds = layerSf.getBounds();
+                });
+
+                // Layers control
+                L.control.layers(legend, {}, {
+                    position: 'bottomleft',
+                    collapsed: false
+                }).addTo(map);
+
+                map.fitBounds(bounds);
+
             });
-            legend["Band " + index] = layerSf;
-
-            bounds = layerSf.getBounds();
-        });
-
-        // Layers control
-        L.control.layers(legend, {}, {
-            position: 'bottomleft',
-            collapsed: false
-        }).addTo(map);
-
-        map.fitBounds(bounds);
-
-    });
