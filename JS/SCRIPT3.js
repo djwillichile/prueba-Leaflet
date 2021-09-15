@@ -62,4 +62,19 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
     });
 
-var pRegiones = L.geoJSON(regiones).addTo(map);
+function style_Region() {
+            return {
+                opacity: 1,
+                color: 'rgba(255,1,1,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+
+var pRegiones = L.geoJSON(regiones,{
+    style: style_Region
+}).addTo(map);
