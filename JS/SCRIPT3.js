@@ -59,3 +59,5 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         map.fitBounds(bounds);
 
     });
+
+var pRegiones = L.geoJSON(regiones).addTo(map);
