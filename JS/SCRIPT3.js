@@ -63,17 +63,37 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
     });
 
 function style_Region() {
-            return {
-                opacity: 1,
-                color: 'rgba(255,1,1,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fillOpacity: 0,
-                interactive: true,
-            }
-        }
+    return {
+        opacity: 1,
+        color: 'rgba(255,1,1,1.0)',
+        dashArray: '',
+        lineCap: 'butt',
+        lineJoin: 'miter',
+        weight: 1.0, 
+        fillOpacity: 0,
+        interactive: true,
+    }
+}
+
+function style_Comuna() {
+    return {
+        opacity: 1,
+        color: 'rgba(74,74,74,1.0)',
+        dashArray: '1,5',
+        lineCap: 'butt',
+        lineJoin: 'miter',
+        weight: 1.0, 
+        fill: true,
+        fillOpacity: 1,
+        fillColor: 'rgba(164,113,88,0.0)',
+        interactive: true,
+    }
+}
+
+
+var pComunas = L.geoJSON(comunas,{
+    style: style_Comuna
+}).addTo(map);
 
 var pRegiones = L.geoJSON(regiones,{
     style: style_Region
