@@ -1,4 +1,4 @@
-var map = L.map('map');
+var map = L.map('map').setView([-35.31, -72.11], 7);
 
 let url1 = 'https://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png';
 let url2 = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}';
@@ -22,7 +22,6 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 d3.request("data/bioc_06.tif").responseType('arraybuffer').get(
     function (error, tiffData){
         let bio = L.ScalarField.fromGeoTIFF(tiffData.response);
-
 
         let layer = L.canvasLayer.scalarField(bio, {
             color: chroma.scale(colours).domain(bio.range),
