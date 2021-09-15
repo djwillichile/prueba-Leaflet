@@ -19,8 +19,8 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 '#8abccf', '#a5d5d8', '#c5eddf', '#ffffe0', '#ffdec7', '#ffbcaf',
 '#ff9895', '#f4777f', '#e4576b', '#cf3759', '#b41648', '#93003a']
 
-var meses = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO','JUNIO', 
-'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE','DICIEMBRE']
+var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'julio', 
+'julio', 'agosto', 'septembre', 'octubre', 'noviembre','diciembre']
 
 d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
     function (error, tiffData) {
@@ -45,7 +45,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                         .openOn(map);
                 }
             });
-            legend[meses[index]] = layerSf;
+            legend["Precipitación del mes de " + meses[index]] = layerSf;
 
             bounds = layerSf.getBounds();
         });
