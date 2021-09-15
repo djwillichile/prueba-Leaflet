@@ -45,7 +45,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                         .openOn(map);
                 }
             });
-            legend["Precipitación del mes de " + meses[index]] = layerSf;
+            legend["Mes de " + meses[index]] = layerSf;
 
             bounds = layerSf.getBounds();
         });
