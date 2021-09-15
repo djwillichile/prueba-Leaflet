@@ -50,6 +50,8 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             bounds = layerSf.getBounds();
         });
 
+        console.log(legend)
+
         // Layers control
         L.control.layers(legend, {}, {
             position: 'topright',
