@@ -33,7 +33,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         scalarFields.forEach(function (sf, index) {
             var range = sf.range;
-            var scale = chroma.scale('BrBG').domain(range).classes(25);
+            var scale = chroma.scale('BrBG').domain(range).classes(30);
 
             let layerSf = L.canvasLayer.scalarField(sf, {
                 color: scale,
@@ -54,7 +54,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                 background: '#000',
                 textColor: 'white',
                 labelFontSize: 9
-            }).addTo(map);
+            });
             
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
@@ -77,18 +77,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             collapsed: false
         }).addTo(map);
 
-/*        var bar = L.control.colorBar(scale, range, {
-            title: 'Currents surface velocity (m/s)',
-            units: 'm/s',
-            steps: 100,
-            decimals: 1,
-            width: 350,
-            height: 20,
-            position: 'bottomleft',
-            background: '#000',
-            textColor: 'white',
-            labelFontSize: 9
-        }).addTo(map);*/
+        bar.addTo(map);
 
 
         map.fitBounds(bounds);
