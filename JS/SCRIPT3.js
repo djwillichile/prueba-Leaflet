@@ -41,7 +41,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    Sfvalues = e.value;
+                    Sfvalues[index] = e.value;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
@@ -54,7 +54,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             bounds = layerSf.getBounds();
         });
 
-        scalarFields.on('click', function () {
+        on('click', function () {
             console.log(Sfvalues);
         })
 
