@@ -28,15 +28,15 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
-        let SfPars = {};
+        // let SfPars = {};
         
 
         scalarFields.forEach(function (sf, index) {
             var range = sf.range;
             var scale = chroma.scale('BrBG').domain(range).classes(8);
 
-            SfPars[0] = range;
-            SfPars[1] = scale;
+            // SfPars[0] = range;
+            // SfPars[1] = scale;
 
 
             let layerSf = L.canvasLayer.scalarField(sf, {
@@ -63,7 +63,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         // Layers control
         L.control.layers(legend, {}, {
-            position: 'right',
+            position: 'topright',
             collapsed: false
         }).addTo(map);
 
@@ -80,7 +80,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         map.fitBounds(bounds);
 
-        console.log(SfPars);
+        // console.log(SfPars);
 
     });
 
