@@ -50,7 +50,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                 decimals: 1,
                 width: 350,
                 height: 20,
-                position: 'bottomleft',
+                position: 'bottomright',
                 background: '#000',
                 textColor: 'white',
                 labelFontSize: 9
