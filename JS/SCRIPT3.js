@@ -35,7 +35,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         scalarFields.forEach(function (sf, index) {
             range = sf.range;
-            scale = chroma.scale('BrBG').domain(range).classes(30);
+            scale = chroma.scale('BrBG').domain(range).classes(20);
 
             let layerSf = L.canvasLayer.scalarField(sf, {
                 color: scale,
