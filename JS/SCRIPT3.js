@@ -27,6 +27,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
+        let sfValues = {};
 
         scalarFields.forEach(function (sf, index) {
             let layerSf = L.canvasLayer.scalarField(sf, {
@@ -38,6 +39,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
+                    sfValues[index] = v;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
@@ -51,6 +53,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         });
 
         console.log(legend)
+        console.log(sfValues)
 
         // Layers control
         L.control.layers(legend, {}, {
@@ -75,7 +78,7 @@ function style_Region() {
     }
 }
 
-function style_Comuna() {
+function style_Provincia() {
     return {
         opacity: 1,
         color: 'rgba(74,74,74,1.0)',
@@ -91,10 +94,11 @@ function style_Comuna() {
 }
 
 
-var pComunas = L.geoJSON(comunas,{
-    style: style_Comuna
+var pProvincias = L.geoJSON(provincias,{
+    style: style_Provincia
 }).addTo(map);
 
 var pRegiones = L.geoJSON(regiones,{
     style: style_Region
 }).addTo(map);
+
