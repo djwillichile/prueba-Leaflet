@@ -41,7 +41,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                 color: scale,
                 opacity: 0.65,
                 interpolate: true,
-
+                inFilter: (v) => v !== 0
             }).addTo(map);
 
             
@@ -69,8 +69,9 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         var bar = L.control.colorBar(scale, range, {
             title: 'Currents surface velocity (m/s)',
             units: 'm/s',
+            opacity: 0.65,
             steps: 100,
-            decimals: 1,
+            decimals: 0,
             width: 350,
             height: 20,
             position: 'bottomright',
