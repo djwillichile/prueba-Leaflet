@@ -54,9 +54,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             bounds = layerSf.getBounds();
         });
 
-        on('click', function () {
-            console.log(Sfvalues);
-        })
+        console.log(legend);
 
 
         // Layers control
