@@ -28,12 +28,14 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
+        var range;
+        var scale;
         // let SfPars = {};
         
 
         scalarFields.forEach(function (sf, index) {
-            var range = sf.range;
-            var scale = chroma.scale('BrBG').domain(range).classes(8);
+            range = sf.range;
+            scale = chroma.scale('BrBG').domain(range).classes(8);
 
             // SfPars[0] = range;
             // SfPars[1] = scale;
