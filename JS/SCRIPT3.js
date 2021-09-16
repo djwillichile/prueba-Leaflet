@@ -81,7 +81,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
 
         map.fitBounds(bounds);
-        map.setZoom(5)
+        map.setZoom(3)
 
     });
 
