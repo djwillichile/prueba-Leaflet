@@ -65,7 +65,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         // Layers control
         L.control.layers(legend, {}, {
-            position: 'topright',
+            position: 'right',
             collapsed: false
         }).addTo(map);
 
@@ -76,11 +76,9 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             decimals: 1,
             width: 350,
             height: 20,
-            position: 'bottomright',
+            position: 'bottom',
             background: '#000',
             textColor: 'white',
-            textLabels: ['low', 'mid', 'high'],
-            labels: [0, 1.0, 2.0],
             labelFontSize: 9
         }).addTo(map);
 
