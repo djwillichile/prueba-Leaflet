@@ -37,7 +37,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                 interpolate: true,
             }).addTo(map);
             
-            layerSf.on('click', function (e) {
+/*            layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
@@ -46,11 +46,17 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                         .setContent(html)
                         .openOn(map);
                 }
-            });
+            });*/
             legend["Mes de " + meses[index]] = layerSf;
 
             bounds = layerSf.getBounds();
         });
+
+        scalarFields.on('click', function (e) {
+            if (e.value !== null) {
+                    console.log(e.value);
+                }
+        })
 
 
         // Layers control
