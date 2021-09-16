@@ -52,8 +52,6 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             bounds = layerSf.getBounds();
         });
 
-        console.log(legend)
-        console.log(sfValues)
 
         // Layers control
         L.control.layers(legend, {}, {
@@ -102,3 +100,4 @@ var pRegiones = L.geoJSON(regiones,{
     style: style_Region
 }).addTo(map);
 
+console.log(sfValues)
