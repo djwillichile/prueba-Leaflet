@@ -22,12 +22,14 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'julio', 
 'julio', 'agosto', 'septembre', 'octubre', 'noviembre','diciembre']
 
+let sfValues = {};
+
 d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
     function (error, tiffData) {
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
-        let sfValues = {};
+        
 
         scalarFields.forEach(function (sf, index) {
             let layerSf = L.canvasLayer.scalarField(sf, {
@@ -39,7 +41,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    sfValues[index] = v;
+                    sfValues[index] = e.value;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
@@ -67,10 +69,10 @@ function style_Region() {
     return {
         opacity: 1,
         color: 'rgba(255,1,1,1.0)',
-        dashArray: '',
+        dashArray: '3',
         lineCap: 'butt',
         lineJoin: 'miter',
-        weight: 1.0, 
+        weight: 1.2, 
         fillOpacity: 0,
         interactive: true,
     }
@@ -79,14 +81,12 @@ function style_Region() {
 function style_Provincia() {
     return {
         opacity: 1,
-        color: 'rgba(74,74,74,1.0)',
-        dashArray: '1,5',
+        color: 'white',
+        dashArray: '3',
         lineCap: 'butt',
         lineJoin: 'miter',
         weight: 1.0, 
-        fill: true,
-        fillOpacity: 1,
-        fillColor: 'rgba(164,113,88,0.0)',
+        fillOpacity: 0,
         interactive: true,
     }
 }
