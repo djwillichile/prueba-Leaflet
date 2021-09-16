@@ -72,7 +72,6 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             units: 'm/s',
             steps: 100,
             decimals: 1,
-            width: 50%,
             position: 'bottom',
             background: '#000',
             textColor: 'white',
