@@ -28,39 +28,27 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
-        let Sfvalues = {};
+        let SfPars = {};
         
 
         scalarFields.forEach(function (sf, index) {
             var range = sf.range;
-            var scale = chroma.scale('BrBG').domain(range);
+            var scale = chroma.scale('BrBG').domain(range).classes(8);
+
+            SfPars[0] = range
+            SfPars[1] = scale
+
 
             let layerSf = L.canvasLayer.scalarField(sf, {
-                color: chroma.scale('BrBG').domain(sf.range),
+                color: scale,
                 opacity: 0.65,
                 interpolate: true,
+
             }).addTo(map);
-
-            
-                
-
-            var bar = L.control.colorBar(scale, range, {
-                    title: 'Currents surface velocity (m/s)',
-                    units: 'm/s',
-                    steps: 100,
-                    decimals: 1,
-                    width: 350,
-                    height: 20,
-                    position: 'bottomright',
-                    background: '#000',
-                    textColor: 'white',
-                    labelFontSize: 9
-                }).addTo(map);
             
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    Sfvalues[index] = e.value;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
@@ -73,16 +61,27 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             bounds = layerSf.getBounds();
         });
 
-        console.log(legend);
-
-
         // Layers control
         L.control.layers(legend, {}, {
-            position: 'topright',
+            position: 'right',
             collapsed: false
         }).addTo(map);
 
+        L.control.colorBar(scale, range, {
+            title: 'Currents surface velocity (m/s)',
+            units: 'm/s',
+            steps: 100,
+            decimals: 1,
+            width: 50%,
+            position: 'bottom',
+            background: '#000',
+            textColor: 'white',
+            labelFontSize: 9
+        }).addTo(map);
+
         map.fitBounds(bounds);
+
+        console.log(SfPars)
 
     });
 
