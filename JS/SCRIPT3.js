@@ -35,8 +35,8 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             var range = sf.range;
             var scale = chroma.scale('BrBG').domain(range).classes(8);
 
-/*            SfPars[0] = range
-            SfPars[1] = scale*/
+            SfPars[0] = range;
+            SfPars[1] = scale;
 
 
             let layerSf = L.canvasLayer.scalarField(sf, {
@@ -72,6 +72,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             units: 'm/s',
             steps: 100,
             decimals: 1,
+            width: 50%,
             position: 'bottom',
             background: '#000',
             textColor: 'white',
@@ -80,7 +81,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
         map.fitBounds(bounds);
 
-        console.log(SfPars)
+        console.log(SfPars);
 
     });
 
