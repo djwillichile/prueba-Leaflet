@@ -22,7 +22,6 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'julio', 
 'julio', 'agosto', 'septembre', 'octubre', 'noviembre','diciembre']
 
-let sfValues = {};
 
 d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
     function (error, tiffData) {
@@ -41,7 +40,6 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    sfValues[index] = e.value;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
@@ -79,11 +77,11 @@ function style_Region() {
 
 function style_Comuna() {
     return {
-        opacity: .6,
+        opacity: .5,
         color: 'white',
         lineCap: 'butt',
         lineJoin: 'miter',
-        weight: .5, 
+        weight: .3, 
         fillOpacity: 0,
         interactive: true,
     }
@@ -97,5 +95,3 @@ var pComunas = L.geoJSON(comunas,{
 var pRegiones = L.geoJSON(regiones,{
     style: style_Region
 }).addTo(map);
-
-console.log(sfValues)
