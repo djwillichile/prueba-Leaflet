@@ -32,11 +32,17 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         
 
         scalarFields.forEach(function (sf, index) {
+            var range = sf.range;
+            var scale = chroma.scale('BrBG').domain(range);
+
             let layerSf = L.canvasLayer.scalarField(sf, {
                 color: chroma.scale('BrBG').domain(sf.range),
                 opacity: 0.65,
                 interpolate: true,
             }).addTo(map);
+
+            
+                
 
             var bar = L.control.colorBar(scale, range, {
                     title: 'Currents surface velocity (m/s)',
