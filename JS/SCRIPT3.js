@@ -28,6 +28,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
+        let Sfvalues = {};
         
 
         scalarFields.forEach(function (sf, index) {
@@ -37,25 +38,24 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
                 interpolate: true,
             }).addTo(map);
             
-/*            layerSf.on('click', function (e) {
+            layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
+                    Sfvalues = e.value;
                     let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
                         .setContent(html)
                         .openOn(map);
                 }
-            });*/
+            });
             legend["Mes de " + meses[index]] = layerSf;
 
             bounds = layerSf.getBounds();
         });
 
-        scalarFields.on('click', function (e) {
-            if (e.value !== null) {
-                    console.log(e.value);
-                }
+        scalarFields.on('click', function () {
+            console.log(Sfvalues);
         })
 
 
@@ -84,7 +84,7 @@ function style_Region() {
 function style_Comuna() {
     return {
         opacity: .5,
-        color: 'white',
+        color: 'gray',
         lineCap: 'butt',
         lineJoin: 'miter',
         weight: .3, 
