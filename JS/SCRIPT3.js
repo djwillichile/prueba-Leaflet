@@ -69,7 +69,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             collapsed: false
         }).addTo(map);
 
-        var bar = L.control.colorBar(, , {
+        var bar = L.control.colorBar(scale, range, {
             title: 'Currents surface velocity (m/s)',
             units: 'm/s',
             steps: 100,
