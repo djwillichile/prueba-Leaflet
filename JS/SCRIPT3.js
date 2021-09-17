@@ -46,7 +46,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    let html = ('<span class="popupText">Value: ' + ${v} + '</span>');
+                    let html = ('<span class="popupText">Value: ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
                         .setContent(html)
