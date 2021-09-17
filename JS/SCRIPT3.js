@@ -18,7 +18,15 @@ var layer_GoogleTerrain_1 = L.tileLayer(url2, {
 layer_OSMStandard_0.addTo(map);
 map.addLayer(layer_GoogleTerrain_1);
 
-L.Control.geocoder().addTo(map);
+L.Control.geocoder({
+    position: 'topleft'
+}).addTo(map);
+
+L.control.scale({
+    metric: true,
+    imperial: false,
+    maxWidth: 300
+}).addTo(map);
 
 var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 '#8abccf', '#a5d5d8', '#c5eddf', '#ffffe0', '#ffdec7', '#ffbcaf',
@@ -80,7 +88,7 @@ d3.request(url).responseType('arraybuffer').get(
 
             let layerSf = L.canvasLayer.scalarField(sf, {
                 color: scale,
-                opacity: 0.9,
+                opacity: 0.8,
                 interpolate: true,
                 inFilter: (v) => v !== 0
             });
@@ -116,11 +124,14 @@ d3.request(url).responseType('arraybuffer').get(
             decimals: 0,
             width: 350,
             height: 20,
-            position: 'bottomright',
+            position: 'bottomleft',
             background: '#000',
             textColor: 'white',
+            textLabels: ['low', 'mid', 'high'],
+            labels: [range[0], (range[0]+range[1])/2, range[1]],
             labelFontSize: 9
         }).addTo(map);
+
 
 
         map.fitBounds(bounds);
