@@ -28,33 +28,32 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
-        var range;
-        var scale;
-
-        
+        let ranges = {};
+        let scales = {};
 
         scalarFields.forEach(function (sf, index) {
-            range = sf.range;
-            scale = chroma.scale('BrBG').domain(range).classes(20);
+            ranges[index] = sf.range;
+            scales[index] = chroma.scale('BrBG').domain(ranges[index]).classes(20);
 
             let layerSf = L.canvasLayer.scalarField(sf, {
-                color: scale,
+                color: scales[index],
                 opacity: 0.65,
                 interpolate: true,
                 inFilter: (v) => v !== 0
-            }).addTo(map);
+            });
 
             
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    let html = ('<span class="popupText">Value: ' + v + '</span>');
+                    let html = ('<span class="popupText">Value: ' + ${v} + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
                         .setContent(html)
                         .openOn(map);
                 }
             });
+
             legend["Mes de " + meses[index]] = layerSf;
 
             bounds = layerSf.getBounds();
@@ -66,10 +65,9 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
             collapsed: false
         }).addTo(map);
 
-        var bar = L.control.colorBar(scale, range, {
+        var bar = L.control.colorBar(scales, ranges, {
             title: 'Currents surface velocity (m/s)',
             units: 'm/s',
-            opacity: 0.65,
             steps: 100,
             decimals: 0,
             width: 350,
@@ -82,7 +80,7 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
 
         map.fitBounds(bounds);
-        map.setZoom(6)
+        map.setZoom(7)
 
     });
 
@@ -118,3 +116,8 @@ var pComunas = L.geoJSON(comunas,{
 var pRegiones = L.geoJSON(regiones,{
     style: style_Region
 }).addTo(map);
+
+var overlayMaps = {
+    "Regiones": pRegiones,
+    "Comunas": pComunas
+};
