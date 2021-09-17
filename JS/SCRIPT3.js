@@ -86,27 +86,6 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
     });
 
-var osmGeocoder = new L.Control.Geocoder({
-    collapsed: true,
-    position: 'topleft',
-    text: 'Search',
-    title: 'Testing'
-}).addTo(map);
-
-document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-.className += ' fa fa-search';
-
-document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-.title += 'Search for a place';
-
-map.addControl(new L.Control.Search({
-    layer: layer_Comuna_5,
-    initial: false,
-    hideMarkerOnCollapse: true,
-    propertyName: 'Comuna'}));
-document.getElementsByClassName('search-button')[0].className +=
- ' fa fa-binoculars';
-
 function style_Region() {
     return {
         opacity: 1,
