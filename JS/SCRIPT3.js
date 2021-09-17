@@ -1,5 +1,8 @@
 var map = L.map('map');
 
+let variable = "Precipitación"
+let url = "data/CFS/2030/prec_masc.tif"
+
 let url1 = 'https://c.tiles.wmflabs.org/osm-no-labels/{z}/{x}/{y}.png';
 let url2 = 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}';
 
@@ -22,31 +25,70 @@ var colours = ['#00429d', '#2e59a8', '#4771b2', '#5d8abd', '#73a2c6',
 var meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'julio', 
 'julio', 'agosto', 'septembre', 'octubre', 'noviembre','diciembre']
 
+function style_Region() {
+    return {
+        opacity: 1,
+        color: 'red',
+        lineCap: 'butt',
+        lineJoin: 'miter',
+        weight: 1,
+        fillOpacity: 0,
+        interactive: true,
+    }
+}
 
-d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
+function style_Comuna() {
+    return {
+        opacity: .8,
+        color: 'gray',
+        lineCap: 'butt',
+        lineJoin: 'miter',
+        weight: .6, 
+        fillOpacity: 0,
+        interactive: true,
+    }
+}
+
+
+var pComunas = L.geoJSON(comunas,{
+    style: style_Comuna
+});
+
+var pRegiones = L.geoJSON(regiones,{
+    style: style_Region
+})
+
+var overlayMaps = {
+    "Regiones": pRegiones,
+    "Comunas": pComunas
+};
+
+
+d3.request(url).responseType('arraybuffer').get(
     function (error, tiffData) {
         let scalarFields = L.ScalarField.multipleFromGeoTIFF(tiffData.response);
         let legend = {};
         let bounds = {};
-        let ranges = {};
-        let scales = {};
+        let range;
+        let scale;
 
         scalarFields.forEach(function (sf, index) {
-            ranges[index] = sf.range;
-            scales[index] = chroma.scale('BrBG').domain(ranges[index]).classes(20);
+            range = sf.range;
+            scale = chroma.scale('BrBG').domain(range).classes(20);
 
             let layerSf = L.canvasLayer.scalarField(sf, {
-                color: scales[index],
-                opacity: 0.65,
+                color: scale,
+                opacity: 0.85,
                 interpolate: true,
                 inFilter: (v) => v !== 0
             });
 
-            
+            if (index == 0) {layerSf.addTo(map)}
+
             layerSf.on('click', function (e) {
                 if (e.value !== null) {
                     let v = e.value.toFixed(0);
-                    let html = ('<span class="popupText">Value: ' + v + '</span>');
+                    let html = ('<span class="popupText">'+ variable + ' de ' + meses[index] + ': ' + v + '</span>');
                     L.popup()
                         .setLatLng(e.latlng)
                         .setContent(html)
@@ -60,12 +102,12 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
         });
 
         // Layers control
-        L.control.layers(legend, {}, {
+        L.control.layers(legend, overlayMaps, {
             position: 'topright',
             collapsed: false
         }).addTo(map);
 
-        var bar = L.control.colorBar(scales, ranges, {
+        var bar = L.control.colorBar(scale, range, {
             title: 'Currents surface velocity (m/s)',
             units: 'm/s',
             steps: 100,
@@ -84,40 +126,5 @@ d3.request("data/CFS/2030/prec_masc.tif").responseType('arraybuffer').get(
 
     });
 
-function style_Region() {
-    return {
-        opacity: 1,
-        color: 'red',
-        lineCap: 'butt',
-        lineJoin: 'miter',
-        weight: 1,
-        fillOpacity: 0,
-        interactive: true,
-    }
-}
-
-function style_Comuna() {
-    return {
-        opacity: .5,
-        color: 'gray',
-        lineCap: 'butt',
-        lineJoin: 'miter',
-        weight: .3, 
-        fillOpacity: 0,
-        interactive: true,
-    }
-}
-
-
-var pComunas = L.geoJSON(comunas,{
-    style: style_Comuna
-}).addTo(map);
-
-var pRegiones = L.geoJSON(regiones,{
-    style: style_Region
-}).addTo(map);
-
-var overlayMaps = {
-    "Regiones": pRegiones,
-    "Comunas": pComunas
-};
+pComunas.addTo(map);
+pRegiones.addTo(map);
